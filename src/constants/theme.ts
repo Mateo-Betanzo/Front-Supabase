@@ -1,65 +1,61 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Colores, espaciados y tipografía de la app.
+ * Estilo minimal: grises neutros, un solo color de acento (azul cobalto)
+ * y modo claro/oscuro según el sistema.
  */
-
-import '@/global.css';
 
 import { Platform } from 'react-native';
 
 export const Colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    background: '#FFFFFF',
+    surface: '#F2F3F5', // tarjetas, campos y burbujas del otro
+    border: '#E2E4E8',
+    text: '#15171C',
+    textMuted: '#6B7079',
+    accent: '#2B50E6', // botones principales y mis burbujas
+    accentText: '#FFFFFF', // texto sobre el acento
+    danger: '#C62D2D',
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    background: '#0F1013',
+    surface: '#1B1D22',
+    border: '#2C2F36',
+    text: '#ECEDEF',
+    textMuted: '#9A9FA8',
+    accent: '#7D93FF',
+    accentText: '#0F1013',
+    danger: '#FF7A7A',
   },
 } as const;
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
-
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: 'var(--font-display)',
-    serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
-    mono: 'var(--font-mono)',
-  },
-});
+export type ThemeColors = { [K in keyof typeof Colors.light]: string };
 
 export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
-  six: 64,
+  xs: 4,
+  sm: 8,
+  md: 16,
+  lg: 24,
+  xl: 32,
 } as const;
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+export const Radius = {
+  sm: 8,
+  md: 12,
+  bubble: 18,
+} as const;
+
+// Escala tipográfica (tamaño / alto de línea)
+export const Type = {
+  title: { fontSize: 28, lineHeight: 34, fontWeight: '700' },
+  heading: { fontSize: 17, lineHeight: 22, fontWeight: '600' },
+  body: { fontSize: 16, lineHeight: 22, fontWeight: '400' },
+  small: { fontSize: 14, lineHeight: 19, fontWeight: '400' },
+} as const;
+
+// Fuente monoespaciada: la usamos para el código de amigo,
+// así no se confunden caracteres parecidos.
+export const MonoFont = Platform.select({ ios: 'Menlo', default: 'monospace' });
+
+// Alto mínimo de cualquier elemento que se pueda tocar.
+export const TouchTarget = 48;
